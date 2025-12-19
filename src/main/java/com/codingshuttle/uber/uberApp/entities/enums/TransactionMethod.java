@@ -1,0 +1,5 @@
+package com.codingshuttle.uber.uberApp.entities.enums;
+
+public enum TransactionMethod {
+    BANKING,RIDE
+}
