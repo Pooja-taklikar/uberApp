@@ -53,8 +53,14 @@ INSERT INTO public.driver (available, rating, id, user_id, vehicle_id, current_l
 (true, 4.9, 5, 5, 105, ST_GeomFromText('POINT(77.1025 28.7041)', 4326)), -- Delhi
 (true, 4.6, 7, 7, 107, ST_GeomFromText('POINT(79.0882 21.1458)', 4326)), -- Nagpur
 (false, 4.7, 9, 9, 109, ST_GeomFromText('POINT(77.5946 12.9716)', 4326)), -- Bengaluru
-(true, 4.8, 11, 11, 111, ST_GeomFromText('POINT(78.4867 17.3850)', 4326)), -- Hyderabad
+(true, 49.8, 11, 11, 111, ST_GeomFromText('POINT(78.4867 17.3850)', 4326)), -- Hyderabad
 (true, 4.4, 13, 13, 113, ST_GeomFromText('POINT(80.2707 13.0827)', 4326)), -- Chennai
 (false, 4.6, 15, 15, 115, ST_GeomFromText('POINT(75.8577 22.7196)', 4326)), -- Indore
 (true, 4.9, 17, 17, 117, ST_GeomFromText('POINT(72.5714 23.0225)', 4326)), -- Ahmedabad
 (true, 4.7, 19, 19, 119, ST_GeomFromText('POINT(88.3639 22.5726)', 4326)); -- Kolkata
+
+INSERT INTO public.wallet (id, user_id, balance)
+VALUES (1, 1, 100),
+       (2, 2, 500),
+       (3,10,400),
+       (4,13,200);

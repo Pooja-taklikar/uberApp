@@ -12,7 +12,7 @@ import java.time.LocalTime;
 
 @Component
 @AllArgsConstructor
-public class StrategyManager {
+public class RideStrategyManager {
 
     private final DriverMatchingHighestRatedDriver driverMatchingHighestRatedDriver;
     private final DriverMatchingNearestDriverStrategy driverMatchingNearestDriverStrategy;

@@ -1,5 +1,6 @@
 package com.codingshuttle.uber.uberApp.entities;
 
+import com.codingshuttle.uber.uberApp.dto.PointDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

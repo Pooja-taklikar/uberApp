@@ -2,6 +2,7 @@ package com.codingshuttle.uber.uberApp.controllers;
 
 import com.codingshuttle.uber.uberApp.dto.RideDto;
 import com.codingshuttle.uber.uberApp.dto.RideStartDto;
+import com.codingshuttle.uber.uberApp.entities.Ride;
 import com.codingshuttle.uber.uberApp.services.DriverService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,7 @@ public class DriverController {
 
     public final DriverService driverService;
 
-    @PostMapping("/aaceptRide/{rideRequestId}")
+    @PostMapping("/acceptRide/{rideRequestId}")
     public ResponseEntity<RideDto> acceptRide(@PathVariable Long rideRequestId){
         return ResponseEntity.ok(driverService.acceptRide(rideRequestId));
     }
@@ -22,5 +23,10 @@ public class DriverController {
     @PostMapping("/startRide/{rideRequestId}")
     public ResponseEntity<RideDto> startRide(@PathVariable Long rideRequestId, @RequestBody RideStartDto rideStartDto){
         return ResponseEntity.ok(driverService.startRide(rideRequestId,rideStartDto.getOtp()));
+    }
+
+    @PostMapping("/endRide/{rideId}")
+    public ResponseEntity<RideDto> endRide(@PathVariable Long rideId){
+        return ResponseEntity.ok(driverService.endRide(rideId));
     }
 }
