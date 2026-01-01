@@ -1,5 +1,6 @@
 package com.codingshuttle.uber.uberApp.services;
 
+import com.codingshuttle.uber.uberApp.dto.DriverDto;
 import com.codingshuttle.uber.uberApp.dto.RideDto;
 import com.codingshuttle.uber.uberApp.dto.RideRequestDto;
 import com.codingshuttle.uber.uberApp.dto.RiderDto;
@@ -16,7 +17,7 @@ public interface RiderService {
 
     RideDto cancelRide(Long rideId);
 
-    RiderDto rateDriver(Long rideId,Integer rating);
+    DriverDto rateDriver(Long rideId, Integer rating);
 
     RiderDto getMyProfile();
 

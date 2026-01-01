@@ -3,6 +3,7 @@ package com.codingshuttle.uber.uberApp.entities;
 import com.codingshuttle.uber.uberApp.entities.enums.PaymentMethod;
 import com.codingshuttle.uber.uberApp.entities.enums.RideRequestStatus;
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -13,6 +14,9 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
+@Table(indexes = {
+        @Index(name = "idx_ride_request_rider",columnList = "rider_id")
+})
 public class RideRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

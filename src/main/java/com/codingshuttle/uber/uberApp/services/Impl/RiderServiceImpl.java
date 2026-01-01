@@ -1,5 +1,6 @@
 package com.codingshuttle.uber.uberApp.services.Impl;
 
+import com.codingshuttle.uber.uberApp.dto.DriverDto;
 import com.codingshuttle.uber.uberApp.dto.RideDto;
 import com.codingshuttle.uber.uberApp.dto.RideRequestDto;
 import com.codingshuttle.uber.uberApp.dto.RiderDto;
@@ -10,6 +11,7 @@ import com.codingshuttle.uber.uberApp.exceptions.ResourceNotFoundException;
 import com.codingshuttle.uber.uberApp.repositories.RideRequestRepository;
 import com.codingshuttle.uber.uberApp.repositories.RiderRepository;
 import com.codingshuttle.uber.uberApp.services.DriverService;
+import com.codingshuttle.uber.uberApp.services.RatingService;
 import com.codingshuttle.uber.uberApp.services.RideService;
 import com.codingshuttle.uber.uberApp.services.RiderService;
 import com.codingshuttle.uber.uberApp.stratrgies.RideStrategyManager;
@@ -18,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +37,7 @@ public class RiderServiceImpl implements RiderService {
     private final RiderRepository riderRepository;
     private final RideService rideService;
     private final DriverService driverService;
+    private final RatingService ratingService;
 
     @Override
     @Transactional
@@ -77,8 +81,19 @@ public class RiderServiceImpl implements RiderService {
     }
 
     @Override
-    public RiderDto rateDriver(Long rideId, Integer rating) {
-        return null;
+    public DriverDto rateDriver(Long rideId, Integer rating) {
+        Ride ride = rideService.getRideById(rideId);
+        Rider rider = getCurrentRider();
+
+        if(!rider.equals(ride.getRider())){
+            throw new RuntimeException("Rider is not owner of this ride");
+        }
+
+        if(!ride.getRideStatus().equals(RideStatus.ENDED))
+        {
+            throw new RuntimeException("Ride status is not ENDED hence cannot be start rating " + ride.getRideStatus());
+        }
+        return ratingService.rateDriver(ride,rating);
     }
 
     @Override
@@ -106,9 +121,10 @@ public class RiderServiceImpl implements RiderService {
     @Override
     public Rider getCurrentRider() {
         // Implement using Spring Security
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        return riderRepository.findById(1l).orElseThrow(() -> new ResourceNotFoundException(
-                "Rider not Found with Id" + 1
+        return riderRepository.findByUser(user).orElseThrow(() -> new ResourceNotFoundException(
+                "Rider not associated with user with Id " + user.getId()
         ));
     }
 
