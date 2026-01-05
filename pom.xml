@@ -141,10 +141,6 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<!-- 🔒 Prevent Spring Boot from starting during CI/CD build -->
-					<skip>true</skip>
-
-					<!-- Keep Lombok exclusion as-is -->
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
